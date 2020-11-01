@@ -1,8 +1,11 @@
 const mongoose  = require('mongoose');
 const Customer = require('./models/customer');
 
+//map global promise - removing warning
+mongoose.Promise = global.Promise;
+
 //connect to mongoose
-const db = mongoose.connect('mongodb://localhost:27017/customer-cli', { useNewUrlParser: true , useUnifiedTopology: true } );
+const db = mongoose.connect('mongodb://localhost:27017/customercli', { useNewUrlParser: true , useUnifiedTopology: true} );
 
 mongoose.connection.once('open',() => {
     console.log('Connected to the database');
@@ -11,10 +14,10 @@ mongoose.connection.once('open',() => {
 
 const addCustomer = (customer) => {
     Customer.create(customer).then(customer => {
-        console.log("new customer added");
+        console.info("new customer added whose name is " , customer.fname , customer.lname);
         db.close();
     }).catch(err => {
-        console.log(err);
+        throw err;
     })
 };
 
@@ -24,6 +27,11 @@ const findCustomer = (name) => {
         console.info(customer);
         db.close();
     }).catch(err => {
-
+        throw err;
     })
-}
+};
+
+module.exports = {
+    addCustomer,
+    findCustomer
+};

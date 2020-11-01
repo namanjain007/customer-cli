@@ -2,7 +2,7 @@ const mongoose  = require('mongoose');
 const Customer = require('./models/customer');
 
 //connect to mongoose
-const db = mongoose.connect('mongodb://localhost:27017/customer-cli',{useMongoClient : true});
+const db = mongoose.connect('mongodb://localhost:27017/customer-cli', { useNewUrlParser: true , useUnifiedTopology: true } );
 
 mongoose.connection.once('open',() => {
     console.log('Connected to the database');

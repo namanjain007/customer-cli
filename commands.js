@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { program } = require('commander');
 const { prompt } = require('inquirer');
 
@@ -27,7 +29,7 @@ const questions = [
 ];
 
 program
-    .version('1.0.0')
+    .version('0.0.0')
     .description('Customer Management System')
 
 // program

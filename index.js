@@ -1,4 +1,5 @@
 const mongoose  = require('mongoose');
+const customer = require('./models/customer');
 const Customer = require('./models/customer');
 
 const url = 'mongodb://127.0.0.1:27017/customercli'
@@ -35,7 +36,33 @@ const findCustomer = (name) => {
     })
 };
 
+const updateCustomer = (_id, updatedcustomer) => {
+    Customer.update({_id} , updatedcustomer)
+        .then(customer => {
+            console.log("Customer Updated");
+            db.close();
+        })
+        .catch(err => {
+            throw err;
+        })
+}
+
+const removeCustomer = (_id) => {
+    Customer.remove({_id})
+        .then(customer => {
+            console.log("Customer Removed");
+            db.close();
+        })
+        .catch(err => {
+            throw err;
+        })
+}
+
+
+
 module.exports = {
     addCustomer,
-    findCustomer
+    findCustomer,
+    updateCustomer,
+    removeCustomer
 };

@@ -1,7 +1,7 @@
 const { program } = require('commander');
 const { prompt } = require('inquirer');
 
-const { addCustomer , findCustomer} = require('./index');
+const { addCustomer , findCustomer , updateCustomer, removeCustomer } = require('./index');
 
 const questions = [
     {
@@ -58,6 +58,29 @@ program
     .description('find customer command')
     .action((fname) => {
         findCustomer(fname);
+    })
+
+
+program
+    .command('update <_id>')
+    .alias('upd')
+    .description('Updating an existing customer')
+    .action((_id) => {
+        prompt(questions)
+            .then(answers => {
+                updateCustomer(_id, answers);
+            })
+            .catch(err => {
+                throw err;
+            })
+    })
+
+program
+    .command('remove <_id>')
+    .alias('rem')
+    .description('Removing an existing customer')
+    .action((_id) => {
+        removeCustomer(_id);
     })
 
 program.parse(process.argv);

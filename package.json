@@ -11,8 +11,8 @@
   "dependencies": {
     "commander": "^6.2.0",
     "inquirer": "^7.3.3",
+    "mongodb": "^3.6.2",
     "mongoose": "^5.10.11"
   },
-  "devDependencies": {},
   "description": ""
 }

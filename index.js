@@ -1,16 +1,20 @@
 const mongoose  = require('mongoose');
 const Customer = require('./models/customer');
 
-//map global promise - removing warning
-mongoose.Promise = global.Promise;
+const url = 'mongodb://127.0.0.1:27017/customercli'
 
 //connect to mongoose
-const db = mongoose.connect('mongodb://localhost:27017/customercli', { useNewUrlParser: true , useUnifiedTopology: true} );
+mongoose.connect(url, { useNewUrlParser: true , useUnifiedTopology: true} );
 
-mongoose.connection.once('open',() => {
-    console.log('Connected to the database');
-});
+const db = mongoose.connection;
 
+db.once('open', _ => {
+    console.log('Database connected:', url)
+  })
+  
+  db.on('error', err => {
+    console.error('connection error:', err)
+  })
 
 const addCustomer = (customer) => {
     Customer.create(customer).then(customer => {
